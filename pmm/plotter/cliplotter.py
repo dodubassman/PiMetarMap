@@ -1,10 +1,16 @@
 from collections.abc import Sequence
 
-from pmm import settings
 from pmm.plotter import PlotterInterface, Plot
 
 
 class CliPlotter(PlotterInterface):
+    """A Cli plotter, mainly used for functional tests
+
+       Displays in your terminal the airport list with colored plots matching VMC conditions
+       Exemple :
+           LFRS: ⬤
+    """
+
     def setup(self) -> None:
         print('Metar map preview')
 

@@ -24,10 +24,9 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, airports: Tuple
     plotter.plot_map(plots)
 
 
-if __name__ == "__main__":
-    main(
-        provider=InMemoryProvider(),
-        plotter=CliPlotter(),
-        airports=settings.AIRPORTS,
-        vmc_level_colors=settings.VMC_LEVEL_COLORS
-    ),
+main(
+    provider=InMemoryProvider(),
+    plotter=CliPlotter(),
+    airports=settings.AIRPORTS,
+    vmc_level_colors=settings.VMC_LEVEL_COLORS
+)

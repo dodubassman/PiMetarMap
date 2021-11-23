@@ -4,6 +4,10 @@ from pmm.metar.parser import Parser
 
 
 class InMemoryProvider(ProviderInterface):
+    """A dummy METAR provider, mainly used for unit and functional tests
+
+       Only handles a pre defined list of 8 statics airport METARS
+    """
     dummy_metars: dict = {
         "LFRS": "LFRS 231800Z AUTO 05012KT CAVOK 07/M02 Q1023 TEMPO 05015G25KT",
         "LFRI": "LFRI 231750Z 06004KT 0500 R24/1900N FG BKN002 BKN004 05/05 Q1029 TEMPO 0300 BR BKN001",
