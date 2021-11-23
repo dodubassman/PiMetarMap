@@ -2,7 +2,7 @@ from typing import Tuple, Dict
 
 from pmm import settings
 from pmm.metar.provider import ProviderInterface
-from pmm.metar.provider.inmemoryprovider import InMemoryProvider as Provider
+from pmm.metar.provider.inmemoryprovider import InMemoryProvider
 from pmm.plotter import PlotterInterface, Plot
 from pmm.plotter.cliplotter import CliPlotter
 
@@ -26,7 +26,7 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, airports: Tuple
 
 if __name__ == "__main__":
     main(
-        provider=Provider(),
+        provider=InMemoryProvider(),
         plotter=CliPlotter(),
         airports=settings.AIRPORTS,
         vmc_level_colors=settings.VMC_LEVEL_COLORS
