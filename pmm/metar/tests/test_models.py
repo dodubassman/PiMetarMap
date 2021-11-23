@@ -1,6 +1,6 @@
 import unittest
 
-from pmm.models import Metar
+from pmm.metar.models import Metar
 
 
 class MetarTest(unittest.TestCase):

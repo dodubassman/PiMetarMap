@@ -2,10 +2,10 @@
 """
 import re
 
-from pmm.models import Metar
+from pmm.metar.models import Metar
 
 
-class MetarParser:
+class Parser:
     def __init__(self, metar_as_text: str):
         self.metar_as_text = metar_as_text
 
