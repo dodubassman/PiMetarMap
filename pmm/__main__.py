@@ -1,3 +1,5 @@
+from typing import Tuple, Dict
+
 from pmm import settings
 from pmm.metar.provider import ProviderInterface
 from pmm.metar.provider.inmemoryprovider import InMemoryProvider as Provider
@@ -5,7 +7,8 @@ from pmm.plotter import PlotterInterface, Plot
 from pmm.plotter.cliplotter import CliPlotter
 
 
-def main(provider: ProviderInterface, plotter: PlotterInterface, airports: tuple, vmc_level_colors: dict):
+def main(provider: ProviderInterface, plotter: PlotterInterface, airports: Tuple[str],
+         vmc_level_colors: Dict[int, str]):
     plots = []
     for icao in airports:
         metar = provider.fetch_metar_by_icao_code(icao)
