@@ -16,12 +16,12 @@ class MetarParserTest(unittest.TestCase):
         parser = MetarParser(self.metar_strings[0])
         metar = parser.process()
 
-        target_metar = Metar()
-        target_metar.icao = 'LFRS'
-        target_metar.text = self.metar_strings[0]
-        target_metar.ceiling_alt = 2200
-        target_metar.visibility = 1400
-        target_metar.vmc_level = 1
+        target_metar = Metar(
+            'LFRS',
+            self.metar_strings[0],
+            2200,
+            1400
+        )
 
         self.assertEqual(metar, target_metar)
 
@@ -66,8 +66,3 @@ class MetarParserTest(unittest.TestCase):
         parser = MetarParser(self.metar_strings[2])
         with self.assertRaises(NotAMetarException):
             parser.parse_visibility()
-
-    def test_feed_vmc_level(self):
-        parser = MetarParser(self.metar_strings[1])
-        self.assertEqual(parser.feed_vmc_level(750, 12000), 2)
-        self.assertEqual(parser.feed_vmc_level(5000, 12000), 5)

@@ -10,12 +10,12 @@ class MetarParser:
         self.metar_as_text = metar_as_text
 
     def process(self) -> Metar:
-        metar = Metar()
-        metar.icao = self.parse_icao()
-        metar.text = self.metar_as_text
-        metar.visibility = self.parse_visibility()
-        metar.ceiling_alt = self.parse_ceiling_alt()
-        metar.vmc_level = self.feed_vmc_level(metar.ceiling_alt, metar.visibility)
+        metar = Metar(
+            self.parse_icao(),
+            self.metar_as_text,
+            self.parse_ceiling_alt(),
+            self.parse_visibility()
+        )
         return metar
 
     def parse_icao(self) -> str:
@@ -51,20 +51,6 @@ class MetarParser:
             raise NotAMetarException('Wrong visibility')
 
         return int(search.group(1))
-
-    def feed_vmc_level(self, ceiling, visibility):
-        if ceiling <= 200 or visibility <= 800:
-            return 0
-        elif ceiling <= 500 or visibility <= 1500:
-            return 1
-        elif ceiling <= 1000 or visibility <= 5000:
-            return 2
-        elif ceiling <= 2000 or visibility <= 8000:
-            return 3
-        elif ceiling <= 3000 or visibility < 9999:
-            return 4
-        else:
-            return 5
 
 
 class NotAMetarException(Exception):
