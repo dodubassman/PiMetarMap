@@ -13,7 +13,7 @@ class Plot:
 class PlotterInterface(ABC):
 
     @abstractmethod
-    def setup(self, ) -> None:
+    def setup(self) -> None:
         pass
 
     @abstractmethod

@@ -27,11 +27,14 @@ class Parser:
         return search.group(1)
 
     def parse_ceiling_alt(self) -> int:
+        # we want the present weather, without tempo
+        metar_without_tempo = self.metar_as_text.split('TEMPO')[0]
+
         # Ceiling And Visibility OK / No Significative Clouds = 5000ft
-        if self.metar_as_text.find('CAVOK') > 0 or self.metar_as_text.find('NSC') > 0:
+        if metar_without_tempo.find('CAVOK') > 0 or metar_without_tempo.find('NSC') > 0:
             return 5000
 
-        search = re.findall('(FEW|SCT|BKN|OVC)(\\d{3})', self.metar_as_text)
+        search = re.findall('(FEW|SCT|BKN|OVC)(\\d{3})', metar_without_tempo)
         if search:
             ceiling = 5000
             for result in search:
@@ -42,10 +45,14 @@ class Parser:
         raise NotAMetarException('Wrong cloud information')
 
     def parse_visibility(self) -> int:
-        if self.metar_as_text.find('CAVOK') > 0:
+        # we want the present weather, without tempo
+        metar_without_tempo = self.metar_as_text.split('TEMPO')[0]
+
+        # Ceiling And Visibility OK = visibility > 10000m
+        if metar_without_tempo.find('CAVOK') > 0:
             return 9999
 
-        search = re.search(' (\\d{4}) ', self.metar_as_text)
+        search = re.search(' (\\d{4}) ', metar_without_tempo)
 
         if search is None or type(search.group(1)) != str:
             raise NotAMetarException('Wrong visibility')
