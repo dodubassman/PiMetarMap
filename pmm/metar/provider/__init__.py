@@ -10,3 +10,7 @@ class ProviderInterface(ABC):
 
 class NotAValidIcaoCodeException(Exception):
     message = "Provided ICAO code doesn't exist"
+
+
+class NoAvailableMetarDataException(Exception):
+    message = "No wether data available for this airport"

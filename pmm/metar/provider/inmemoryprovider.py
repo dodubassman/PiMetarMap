@@ -16,7 +16,7 @@ class InMemoryProvider(ProviderInterface):
         "LFFI": "LFFI 231800Z AUTO 03006KT 9999 FEW025 OVC047 09/08 Q1029 TEMPO 3000 RA OVC002",
         "LFRN": "LFRN 231725Z AUTO 06007KT 6000 BR BKN002/// OVC004/// 05/05 Q1028 AMB",
         "LFJB": "LFJB 231725Z AUTO VRB01KT 1900 BR OVC047/// 08/08 Q1030 YLO",
-        "LFOU": "LFOU 231755Z AUTO VRB01KT 3200 BR OVC007 // / 05 / 04 Q1029 YLO"
+        "LFOU": ""
     }
 
     def fetch_metar_by_icao_code(self, icao: str) -> Metar:

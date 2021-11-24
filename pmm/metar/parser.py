@@ -30,7 +30,7 @@ class Parser:
         # we want the present weather, without tempo
         metar_without_tempo = self.metar_as_text.split('TEMPO')[0]
 
-        # Ceiling And Visibility OK / No Significative Clouds = 5000ft
+        # Ceiling And Visibility OK / No Significant Clouds = 5000ft
         if metar_without_tempo.find('CAVOK') > 0 or metar_without_tempo.find('NSC') > 0:
             return 5000
 
@@ -42,7 +42,7 @@ class Parser:
                     ceiling = int(result[1]) * 100
             return ceiling
 
-        raise NotAMetarException('Wrong cloud information')
+        raise NotAMetarException(self.parse_icao() + ': Wrong cloud information')
 
     def parse_visibility(self) -> int:
         # we want the present weather, without tempo
@@ -55,7 +55,7 @@ class Parser:
         search = re.search(' (\\d{4}) ', metar_without_tempo)
 
         if search is None or type(search.group(1)) != str:
-            raise NotAMetarException('Wrong visibility')
+            raise NotAMetarException(self.parse_icao() + ': Wrong visibility')
 
         return int(search.group(1))
 
