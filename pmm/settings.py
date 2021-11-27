@@ -15,11 +15,19 @@ AIRPORTS = (
     'LFFI',
     'LFRN',
     'LFJB',
-    'LFOU',
+    'LFBH',
 )
 
 AVWX_WEATHER_API = {
     'daily_quota': '',
     'bearer': '',
     'endpoint': '',
+}
+
+NEOPIXEL = {
+    # NeoPixels must be connected to D10, D12, D18 or D21 to work
+    'gpio_pin': '',
+    # Number of led in the strip.
+    'num_pixels': '',
+    'brightness': ''
 }
