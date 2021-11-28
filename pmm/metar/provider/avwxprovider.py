@@ -22,7 +22,7 @@ class AvwxProvider(ProviderInterface):
 
         resp_dict = resp.json()
         if 'error' in resp_dict:
-            raise NotAValidIcaoCodeException
+            raise NotAValidIcaoCodeException('Error with ICAO code: '+icao+'. '+resp_dict['error'])
 
         parser = Parser(resp_dict['raw'])
         return parser.process()
