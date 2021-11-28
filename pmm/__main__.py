@@ -3,10 +3,9 @@ from typing import Tuple, Dict
 from pmm import settings
 from pmm.apithrottler import ApiThrottler
 from pmm.metar.provider import ProviderInterface, NoAvailableMetarDataException
-from pmm.metar.provider.inmemoryprovider import InMemoryProvider
 from pmm.metar.provider.avwxprovider import AvwxProvider
 from pmm.plotter import PlotterInterface, Plot
-from pmm.plotter.cliplotter import CliPlotter
+from pmm.plotter.neopixelplotter import NeoPixelPlotter
 
 
 def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiThrottler, airports: Tuple[str],
@@ -31,7 +30,7 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiT
 
 main(
     provider=AvwxProvider(),
-    plotter=CliPlotter(),
+    plotter=NeoPixelPlotter(),
     throttler=ApiThrottler(
         daily_quota=settings.AVWX_WEATHER_API['daily_quota'],
         batch_size=len(settings.AIRPORTS)
