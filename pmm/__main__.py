@@ -2,7 +2,8 @@ from typing import Tuple, Dict
 
 from pmm import settings
 from pmm.apithrottler import ApiThrottler
-from pmm.metar.provider import ProviderInterface, NoAvailableMetarDataException
+from pmm.metar.provider import ProviderInterface, NoAvailableMetarDataException, NotAValidIcaoCodeException
+from pmm.metar.parser import NotAMetarException
 from pmm.metar.provider.avwxprovider import AvwxProvider
 from pmm.plotter import PlotterInterface, Plot
 from pmm.plotter.neopixelplotter import NeoPixelPlotter
@@ -22,8 +23,8 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiT
                         icao,
                     )
                 )
-            except NoAvailableMetarDataException:
-                # do nothing if no data available
+            except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException):
+                # skip airport if no data available, wrong ICAO or unable to decode
                 continue
         throttler.wait()
 

@@ -11,7 +11,10 @@ class AvwxProvider(ProviderInterface):
     """
 
     def fetch_metar_by_icao_code(self, icao: str) -> Metar:
-        # Value of Token
+        if icao == '':
+            raise NotAValidIcaoCodeException('Empty icao code')
+
+        # API Call
         bearer = settings.AVWX_WEATHER_API['bearer']
         resp = httpx.get("https://avwx.rest/api/metar/" + icao, headers={
             "Authorization": "BEARER " + bearer
@@ -22,7 +25,7 @@ class AvwxProvider(ProviderInterface):
 
         resp_dict = resp.json()
         if 'error' in resp_dict:
-            raise NotAValidIcaoCodeException('Error with ICAO code: '+icao+'. '+resp_dict['error'])
+            raise NotAValidIcaoCodeException('Error with ICAO code: ' + icao + '. ' + resp_dict['error'])
 
         parser = Parser(resp_dict['raw'])
         return parser.process()
