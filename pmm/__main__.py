@@ -20,7 +20,7 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiT
                     Plot(
                         airports.index(icao),
                         vmc_level_colors[metar.vmc_level],
-                        icao,
+                        metar.text,
                     )
                 )
             except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException):
