@@ -7,7 +7,7 @@ from dataclasses import dataclass
 class Plot:
     index: int
     color: str
-    icao: str
+    text: str
 
 
 class PlotterInterface(ABC):
