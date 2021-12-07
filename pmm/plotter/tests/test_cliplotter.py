@@ -6,6 +6,7 @@ from pmm import settings
 
 
 class CliPlotterTest(unittest.TestCase):
+    @unittest.skip("Work in progress")
     def test_plot_airport(self):
         plotter = CliPlotter()
         plotter.setup()
