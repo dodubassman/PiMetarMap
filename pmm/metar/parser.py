@@ -34,7 +34,7 @@ class Parser:
         if metar_without_tempo.find('CAVOK') > 0 or metar_without_tempo.find('NSC') > 0:
             return 5000
 
-        search = re.findall('(FEW|SCT|BKN|OVC)(\\d{3})', metar_without_tempo)
+        search = re.findall('(SCT|BKN|OVC)(\\d{3})', metar_without_tempo)
         if search:
             ceiling = 5000
             for result in search:
