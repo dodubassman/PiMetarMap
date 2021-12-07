@@ -3,6 +3,7 @@ from pmm.metar.models import Metar
 from pmm.metar.parser import Parser
 from pmm import settings
 import httpx
+import time
 
 
 class AvwxProvider(ProviderInterface):
@@ -16,9 +17,12 @@ class AvwxProvider(ProviderInterface):
 
         # API Call
         bearer = settings.AVWX_WEATHER_API['bearer']
-        resp = httpx.get("https://avwx.rest/api/metar/" + icao, headers={
-            "Authorization": "BEARER " + bearer
-        })
+        try:
+            resp = httpx.get("https://avwx.rest/api/metar/" + icao, headers={
+                "Authorization": "BEARER " + bearer
+            }, timeout=10.0)
+        except httpx.ReadTimeout:
+            raise NoAvailableMetarDataException('A timeout occured while fetching metar data')
 
         if resp.content == b'':
             raise NoAvailableMetarDataException
