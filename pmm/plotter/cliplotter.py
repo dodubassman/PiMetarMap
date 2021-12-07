@@ -8,7 +8,7 @@ class CliPlotter(PlotterInterface):
 
        Displays in your terminal the airport list with colored plots matching VMC conditions
        Exemple :
-           LFRS: ⬤
+           ⬤ LFRS 231800Z AUTO 05012KT CAVOK 07/M02 Q1023 TEMPO 05015G25KT
     """
 
     def setup(self) -> None:
@@ -19,8 +19,8 @@ class CliPlotter(PlotterInterface):
 
         rgb = tuple(int(hexcolor[i:i + 2], 16) for i in (0, 2, 4))
 
-        print(plot.icao, end=": ")
-        print(f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m{'⬤'}\033[m")
+        print(f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m{'⬤'}\033[m", end='  ')
+        print(plot.text)
 
     def plot_map(self, plots: Sequence[Plot]) -> None:
         for plot in plots:
