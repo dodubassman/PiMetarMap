@@ -1,4 +1,4 @@
-from typing import Tuple, Dict
+from typing import Dict
 
 from pmm import settings
 from pmm.apithrottler import ApiThrottler
@@ -9,16 +9,16 @@ from pmm.plotter import PlotterInterface, Plot
 from pmm.plotter.neopixelplotter import NeoPixelPlotter
 
 
-def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiThrottler, airports: Tuple[str],
+def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiThrottler, airports: Dict[int, str],
          vmc_level_colors: Dict[int, str]):
     plotter.setup()
     while True:
-        for icao in airports:
+        for index, icao in airports.items():
             try:
                 metar = provider.fetch_metar_by_icao_code(icao)
                 plotter.plot_airport(
                     Plot(
-                        airports.index(icao),
+                        index,
                         vmc_level_colors[metar.vmc_level],
                         metar.text,
                     )

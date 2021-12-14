@@ -7,16 +7,20 @@ VMC_LEVEL_COLORS = {
     5: '#0000ff',
 }
 
-AIRPORTS = (
-    'LFRS',
-    'LFRI',
-    'LFRZ',
-    'LFOV',
-    'LFFI',
-    'LFRN',
-    'LFJB',
-    'LFBH',
-)
+""" Airports list.
+    Dict[int, str]: Led index, icao code
+"""
+AIRPORTS = {
+    0: 'LFRH',
+    3: 'LFJR',
+    8: 'LFOV',
+    13: 'LFRN',
+    18: 'LFRV',
+    29: 'LFRI',
+    36: 'LFRZ',
+    40: 'LFRS',
+    49: 'LFBH',
+}
 
 AVWX_WEATHER_API = {
     'daily_quota': 4000,

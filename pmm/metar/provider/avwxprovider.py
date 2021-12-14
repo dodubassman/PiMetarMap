@@ -3,7 +3,6 @@ from pmm.metar.models import Metar
 from pmm.metar.parser import Parser
 from pmm import settings
 import httpx
-import time
 
 
 class AvwxProvider(ProviderInterface):
@@ -28,6 +27,10 @@ class AvwxProvider(ProviderInterface):
             raise NoAvailableMetarDataException
 
         resp_dict = resp.json()
+
+        if 'raw' not in resp_dict:
+            raise NoAvailableMetarDataException
+
         if 'error' in resp_dict:
             raise NotAValidIcaoCodeException('Error with ICAO code: ' + icao + '. ' + resp_dict['error'])
 
