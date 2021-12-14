@@ -23,8 +23,12 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiT
                         metar.text,
                     )
                 )
-            except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException):
+            except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException) as e:
                 # skip airport if no data available, wrong ICAO or unable to decode
+                print(str(e) + "... Skipping")
+                plotter.plot_airport(
+                    Plot(index, '#000000', icao)
+                )
                 continue
         throttler.wait()
 
