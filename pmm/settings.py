@@ -33,5 +33,6 @@ NEOPIXEL = {
     'gpio_pin': 'D18',
     # Number of led in the strip.
     'num_pixels': 50,
-    'brightness': 0.2
+    'day_brightness': 0.2,
+    'night_brightness': 0.05
 }

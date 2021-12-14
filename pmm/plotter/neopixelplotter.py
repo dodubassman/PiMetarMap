@@ -1,3 +1,4 @@
+import time
 from typing import Sequence
 
 import board
@@ -27,10 +28,17 @@ class NeoPixelPlotter(PlotterInterface):
 
         num_pixels = settings.NEOPIXEL['num_pixels']
         self.pixels = NeoPixel(
-            pixel_pin, num_pixels, brightness=settings.NEOPIXEL['brightness'], pixel_order=RGB
+            pixel_pin, num_pixels, pixel_order=RGB
         )
 
     def plot_airport(self, plot: Plot) -> None:
+
+        localtime = time.localtime()
+        if localtime.tm_hour < 6 or localtime.tm_hour > 18:
+            self.set_night_brightness()
+        else:
+            self.set_day_brightness()
+
         hex_color = plot.color.lstrip('#')
         rgb = tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
 
@@ -39,3 +47,12 @@ class NeoPixelPlotter(PlotterInterface):
     def plot_map(self, plots: Sequence[Plot]) -> None:
         for plot in plots:
             self.plot_airport(plot)
+
+    def clear(self):
+        self.pixels.fill((0, 0, 0))
+
+    def set_day_brightness(self):
+        self.pixels.brightness = settings.NEOPIXEL['day_brightness']
+
+    def set_night_brightness(self):
+        self.pixels.brightness = settings.NEOPIXEL['night_brightness']

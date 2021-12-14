@@ -23,3 +23,15 @@ class PlotterInterface(ABC):
     @abstractmethod
     def plot_map(self, plots: Sequence[Plot]) -> None:
         pass
+
+    @abstractmethod
+    def clear(self) -> None:
+        pass
+
+    @abstractmethod
+    def set_day_brightness(self) -> None:
+        pass
+
+    @abstractmethod
+    def set_night_brightness(self) -> None:
+        pass
