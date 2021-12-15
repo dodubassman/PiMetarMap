@@ -1,6 +1,6 @@
 # PiMetarMap
 
-PiMetarMap is yet another METAR plotter running on raspberry pi. It uses Adafruit CircuitPython NeoPixel to controle WS2811 addressable LEDs.
+PiMetarMap is yet another METAR plotter running on raspberry pi. It uses Adafruit CircuitPython NeoPixel to control WS2811 addressable LEDs.
 
 Most of the solution on Github are made using US VFR/MVFR/IFR rules to drive led colors.
 
@@ -53,7 +53,7 @@ AIRPORTS = {
 
 ### Weather API
 
-Currently using [Aviation Weather REST API](https://avwx.rest/). But easly adaptable to other services by implementing the [ProviderInterface](https://github.com/dodubassman/PiMetarMap/blob/main/pmm/metar/provider/__init__.py#L6).
+Currently using [Aviation Weather REST API](https://avwx.rest/). But easily adaptable to other services by implementing the [ProviderInterface](https://github.com/dodubassman/PiMetarMap/blob/main/pmm/metar/provider/__init__.py#L6).
 
 You'll need to register for free and get an authorisation token if you plan to use AVWX.rest.
 
@@ -71,10 +71,10 @@ AVWX_WEATHER_API = {
 
 Some mandatory settings to specify :
 
-* The Raspberry Pi GPIO pin the commande wire of your led strip is connected to (NeoPixel requires that it is only one of D10, D12, D18 or D21)
+* The Raspberry Pi GPIO pin the command wire of your led strip is connected to (NeoPixel requires that it is only one of D10, D12, D18 or D21)
 * Number of led you have on your strip
 * Brightness used on daylight, before 6am (float value from 0 to 1. 0 is "on", 1 is "eye piercing", and you'll need an extra power supply because your DC5V @2.1Amp from usb will not be enough if you powered it to max brightness! 0.2 if really enough)
-* Brighness used after 8pm.
+* Brightness used after 8pm.
 
 
 ```Python
