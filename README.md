@@ -4,7 +4,7 @@
 
 PiMetarMap is yet another METAR plotter running on raspberry pi. It uses Adafruit CircuitPython NeoPixel to control WS2811 addressable LEDs.
 
-Most of the solution on Github are made using US VFR/MVFR/IFR rules to drive led colors.
+Most of the solutions on Github are made using US VFR/MVFR/IFR rules to drive led colors.
 
 This project is using French MétéoFrance color code as pictured here:
 
