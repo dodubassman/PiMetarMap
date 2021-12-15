@@ -29,4 +29,5 @@ class ApiThrottler:
     def wait(self) -> None:
         calls_per_hour = self.daily_quota / self.batch_size / 24
         delay_between_calls = math.ceil(3600 / calls_per_hour)
+        print("Waiting " + str(delay_between_calls) + "s.")
         time.sleep(delay_between_calls)

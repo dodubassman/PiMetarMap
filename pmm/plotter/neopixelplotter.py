@@ -34,7 +34,7 @@ class NeoPixelPlotter(PlotterInterface):
     def plot_airport(self, plot: Plot) -> None:
 
         localtime = time.localtime()
-        if localtime.tm_hour < 6 or localtime.tm_hour > 18:
+        if localtime.tm_hour < 6 or localtime.tm_hour >= 18:
             self.set_night_brightness()
         else:
             self.set_day_brightness()
