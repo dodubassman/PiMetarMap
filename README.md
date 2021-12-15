@@ -61,7 +61,7 @@ Currently using [Aviation Weather REST API](https://avwx.rest/). But easily adap
 
 You'll need to register for free and get an authorisation token if you plan to use AVWX.rest.
 
-Api calls are throttled to stay within the quota of the METAR provider service. You'll have to specify this quota. AVWX.rest limit free account to 4000 call/day.
+Api calls are throttled to stay within the quota of the METAR provider service. You'll have to specify this quota. AVWX.rest limits its free accounts to 4000 call/day.
 
 ```Python
 AVWX_WEATHER_API = {
