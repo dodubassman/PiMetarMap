@@ -25,6 +25,7 @@ You can cheat and select the same color if you need less precision and don't wan
 
 Default values are :
 
+```Python
 VMC_LEVEL_COLORS = {
     0: '#cc00cc',
     1: '#ff0000',
@@ -33,6 +34,7 @@ VMC_LEVEL_COLORS = {
     4: '#00ff00',
     5: '#0000ff',
 }
+```
 
 ### Airports
 
