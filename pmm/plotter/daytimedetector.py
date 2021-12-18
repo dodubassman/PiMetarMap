@@ -1,10 +1,7 @@
 from dataclasses import dataclass
 
-from astral import LocationInfo
 from astral.geocoder import database, lookup
 from astral.sun import sun
-
-import pmm.settings
 
 
 @dataclass
