@@ -1,10 +1,14 @@
 # PiMetarMap
 
+<img alt="France map" src="https://github.com/dodubassman/PiMetarMap/blob/eacd5784ddc84bc059d39371594cb53ad3c28e68/doc/pimetarmap_france.jpg" width="300" />
+
 PiMetarMap is yet another METAR plotter running on raspberry pi. It uses Adafruit CircuitPython NeoPixel to control WS2811 addressable LEDs.
 
-Most of the solution on Github are made using US VFR/MVFR/IFR rules to drive led colors.
+Most of the solutions on Github are made using US VFR/MVFR/IFR rules to drive led colors.
 
-This project is using French MétéoFrance color code as pictured here
+This project is using French MétéoFrance color code as pictured here:
+
+<img alt="MétéoFrance VMC levels" src="https://github.com/dodubassman/PiMetarMap/blob/a247514e9acf16ebdca6cde9b28fe3706385ce89/doc/vmc_level_meteofrance.png" width="300" />
 
 - Blue: visibility > 9999m and ceiling above 3000ft
 - Green: visibility > 8000m and ceiling above 2000ft
@@ -57,7 +61,7 @@ Currently using [Aviation Weather REST API](https://avwx.rest/). But easily adap
 
 You'll need to register for free and get an authorisation token if you plan to use AVWX.rest.
 
-Api calls are throttled to stay within the quota of the METAR provider service. You'll have to specify this quota. AVWX.rest limit free account to 4000 call/day.
+Api calls are throttled to stay within the quota of the METAR provider service. You'll have to specify this quota. AVWX.rest limits its free accounts to 4000 call/day.
 
 ```Python
 AVWX_WEATHER_API = {
