@@ -1,4 +1,4 @@
-import time
+from datetime import datetime, timezone
 from typing import Sequence
 
 import board
@@ -38,7 +38,7 @@ class NeoPixelPlotter(PlotterInterface):
 
     def plot_airport(self, plot: Plot) -> None:
 
-        localtime = time.localtime()
+        localtime = datetime.now(timezone.utc)
         if self.daytime_detector.is_daytime(localtime):
             self.set_day_brightness()
         else:

@@ -16,9 +16,6 @@ class DaytimeDetector:
 
         sun_position = sun(city.observer, date=utc_datetime)
 
-        print(utc_datetime)
-        print(sun_position['dawn'])
-
         if utc_datetime < sun_position['dawn'] or utc_datetime > sun_position['dusk']:
             # Nighttime
             return False
