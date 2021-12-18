@@ -1,4 +1,6 @@
 from typing import Dict
+import datetime
+import time
 
 from pmm import settings
 from pmm.apithrottler import ApiThrottler
@@ -12,25 +14,34 @@ from pmm.plotter.neopixelplotter import NeoPixelPlotter
 def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiThrottler, airports: Dict[int, str],
          vmc_level_colors: Dict[int, str]):
     plotter.setup()
+    night_start_time = datetime.time(22)
+    night_end_time = datetime.time(6)
     while True:
-        for index, icao in airports.items():
-            try:
-                metar = provider.fetch_metar_by_icao_code(icao)
-                plotter.plot_airport(
-                    Plot(
-                        index,
-                        vmc_level_colors[metar.vmc_level],
-                        metar.text,
+        now_time = datetime.datetime.now().time()
+        # Don't run at night
+        if night_end_time <= now_time < night_start_time:
+            for index, icao in airports.items():
+                try:
+                    metar = provider.fetch_metar_by_icao_code(icao)
+                    plotter.plot_airport(
+                        Plot(
+                            index,
+                            vmc_level_colors[metar.vmc_level],
+                            metar.text,
+                        )
                     )
-                )
-            except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException) as e:
-                # skip airport if no data available, wrong ICAO or unable to decode
-                print(str(e) + "... Skipping")
-                plotter.plot_airport(
-                    Plot(index, '#1E1E1E', icao)
-                )
-                continue
-        throttler.wait()
+                except (NoAvailableMetarDataException, NotAValidIcaoCodeException, NotAMetarException) as e:
+                    # skip airport if no data available, wrong ICAO or unable to decode
+                    print(str(e) + "... Skipping")
+                    plotter.plot_airport(
+                        Plot(index, '#1E1E1E', icao)
+                    )
+                    continue
+            throttler.wait()
+        else:
+            # Switch of lights
+            plotter.clear()
+            time.sleep(60)
 
 
 main(
