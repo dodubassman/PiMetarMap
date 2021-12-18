@@ -4,8 +4,9 @@ from typing import Sequence
 import board
 from neopixel import NeoPixel, RGB
 
-from pmm.plotter import PlotterInterface, Plot
 from pmm import settings
+from pmm.plotter import PlotterInterface, Plot
+from pmm.plotter.daytimedetector import DaytimeDetector
 
 
 class NeoPixelPlotter(PlotterInterface):
@@ -15,6 +16,7 @@ class NeoPixelPlotter(PlotterInterface):
     """
 
     pixels: NeoPixel
+    daytime_detector: DaytimeDetector
 
     def setup(self) -> None:
         if settings.NEOPIXEL['gpio_pin'] == 'D10':
@@ -30,14 +32,17 @@ class NeoPixelPlotter(PlotterInterface):
         self.pixels = NeoPixel(
             pixel_pin, num_pixels, pixel_order=RGB
         )
+        self.pixels.fill((30, 30, 30))
+
+        self.daytime_detector = DaytimeDetector(settings.CITY_LOCATION)
 
     def plot_airport(self, plot: Plot) -> None:
 
         localtime = time.localtime()
-        if localtime.tm_hour < 6 or localtime.tm_hour >= 18:
-            self.set_night_brightness()
-        else:
+        if self.daytime_detector.is_daytime(localtime):
             self.set_day_brightness()
+        else:
+            self.set_night_brightness()
 
         hex_color = plot.color.lstrip('#')
         rgb = tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))

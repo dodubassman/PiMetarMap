@@ -27,7 +27,7 @@ def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiT
                 # skip airport if no data available, wrong ICAO or unable to decode
                 print(str(e) + "... Skipping")
                 plotter.plot_airport(
-                    Plot(index, '#000000', icao)
+                    Plot(index, '#1E1E1E', icao)
                 )
                 continue
         throttler.wait()

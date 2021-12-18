@@ -36,3 +36,5 @@ NEOPIXEL = {
     'day_brightness': 0.2,
     'night_brightness': 0.05
 }
+
+CITY_LOCATION = 'Paris'
