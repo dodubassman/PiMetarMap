@@ -14,8 +14,10 @@ from pmm.plotter.neopixelplotter import NeoPixelPlotter
 def main(provider: ProviderInterface, plotter: PlotterInterface, throttler: ApiThrottler, airports: Dict[int, str],
          vmc_level_colors: Dict[int, str]):
     plotter.setup()
-    night_start_time = datetime.time(22)
-    night_end_time = datetime.time(6)
+
+    night_start_time = datetime.time(settings.NIGHT_HOURS[0])
+    night_end_time = datetime.time(settings.NIGHT_HOURS[1])
+
     while True:
         now_time = datetime.datetime.now().time()
         # Don't run at night

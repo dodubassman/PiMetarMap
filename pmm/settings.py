@@ -38,3 +38,7 @@ NEOPIXEL = {
 }
 
 CITY_LOCATION = 'Paris'
+
+# Time range during which the system is off.
+# Night starts at 10 o'clock and ends at 6.
+NIGHT_HOURS = (22, 6)
