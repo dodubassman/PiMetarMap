@@ -1,3 +1,5 @@
+import json
+
 from pmm.metar.provider import ProviderInterface, NotAValidIcaoCodeException, NoAvailableMetarDataException
 from pmm.metar.models import Metar
 from pmm.metar.parser import Parser
@@ -26,7 +28,10 @@ class AvwxProvider(ProviderInterface):
         if resp.content == b'':
             raise NoAvailableMetarDataException
 
-        resp_dict = resp.json()
+        try:
+            resp_dict = resp.json()
+        except json.decoder.JSONDecodeError:
+            raise NoAvailableMetarDataException('Error while parsing METAR JSON data')
 
         if 'raw' not in resp_dict:
             raise NoAvailableMetarDataException

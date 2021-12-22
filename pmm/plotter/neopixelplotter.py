@@ -32,7 +32,7 @@ class NeoPixelPlotter(PlotterInterface):
         self.pixels = NeoPixel(
             pixel_pin, num_pixels, pixel_order=RGB
         )
-        self.pixels.fill((30, 30, 30))
+        self.pixels.fill((40, 40, 40))
 
         self.daytime_detector = DaytimeDetector(settings.CITY_LOCATION)
 
