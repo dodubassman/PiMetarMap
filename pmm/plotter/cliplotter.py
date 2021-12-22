@@ -25,3 +25,12 @@ class CliPlotter(PlotterInterface):
     def plot_map(self, plots: Sequence[Plot]) -> None:
         for plot in plots:
             self.plot_airport(plot)
+
+    def clear(self) -> None:
+        pass
+
+    def set_day_brightness(self) -> None:
+        pass
+
+    def set_night_brightness(self) -> None:
+        pass

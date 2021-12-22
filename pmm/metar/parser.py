@@ -27,8 +27,8 @@ class Parser:
         return search.group(1)
 
     def parse_ceiling_alt(self) -> int:
-        # we want the present weather, without tempo
-        metar_without_tempo = self.metar_as_text.split('TEMPO')[0]
+        # we want the present weather, without tempo or becoming
+        metar_without_tempo = self.metar_as_text.split('TEMPO')[0].split('BECMG')[0]
 
         # Ceiling And Visibility OK / No Significant Clouds = 5000ft
         if metar_without_tempo.find('CAVOK') > 0 or metar_without_tempo.find('NSC') > 0:
