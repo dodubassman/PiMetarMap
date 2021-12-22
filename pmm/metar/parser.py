@@ -38,15 +38,18 @@ class Parser:
         if metar_without_tempo.find('VV///') > 0:
             return 0
 
-        search = re.findall('(SCT|BKN|OVC)(\\d{3})', metar_without_tempo)
+        search = re.findall('(FEW|SCT|BKN|OVC)(\\d{3})', metar_without_tempo)
         if search:
             ceiling = 5000
             for result in search:
+                if result[0] == 'FEW' and int(result[1]) * 100 < 1000:
+                    # FEW are considered only below 1000ft agl
+                    ceiling = int(result[1]) * 100
                 if int(result[1]) * 100 < ceiling:
                     ceiling = int(result[1]) * 100
             return ceiling
 
-        raise NotAMetarException(self.parse_icao() + ': Wrong cloud information')
+        raise NotAMetarException(self.parse_icao() + ': Wrong cloud information. ' + self.metar_as_text)
 
     def parse_visibility(self) -> int:
         # we want the present weather, without tempo
