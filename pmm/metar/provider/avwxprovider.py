@@ -22,8 +22,10 @@ class AvwxProvider(ProviderInterface):
             resp = httpx.get("https://avwx.rest/api/metar/" + icao, headers={
                 "Authorization": "BEARER " + bearer
             }, timeout=10.0)
-        except httpx.ReadTimeout:
+        except (httpx.ReadTimeout, httpx.ConnectTimeout):
             raise NoAvailableMetarDataException('A timeout occured while fetching metar data')
+        except httpx.ConnectError:
+            raise NoAvailableMetarDataException('A network error occured while trying to fetch data')
 
         if resp.content == b'':
             raise NoAvailableMetarDataException
