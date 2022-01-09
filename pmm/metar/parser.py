@@ -34,6 +34,10 @@ class Parser:
         if metar_without_tempo.find('CAVOK') > 0 or metar_without_tempo.find('NSC') > 0:
             return 5000
 
+        # NCD + visibility > 9999 then sortof CAVOK (NCD could mean default in sensor)
+        if metar_without_tempo.find('9999') > 0 and metar_without_tempo.find('NCD') > 0:
+            return 5000
+
         # Sky not visible due to fog
         if metar_without_tempo.find('VV///') > 0:
             return 0
@@ -42,11 +46,11 @@ class Parser:
         if search:
             ceiling = 5000
             for result in search:
-                if result[0] == 'FEW' and int(result[1]) * 100 < 1000:
-                    # FEW are considered only below 1000ft agl
-                    ceiling = int(result[1]) * 100
-                if int(result[1]) * 100 < ceiling:
-                    ceiling = int(result[1]) * 100
+                cloud_type = result[0]
+                altitude = int(result[1]) * 100
+                # FEW are considered only below 1000ft agl
+                if (cloud_type == 'FEW' and altitude < 1000) or cloud_type != 'FEW' and altitude < ceiling:
+                    ceiling = altitude
             return ceiling
 
         raise NotAMetarException(self.parse_icao() + ': Wrong cloud information. ' + self.metar_as_text)
